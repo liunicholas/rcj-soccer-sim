@@ -1,16 +1,16 @@
+team = "BLUE"
 # rcj_soccer_player controller - ROBOT B1
 
 # Feel free to import built-in libraries
 import math
 
 # You can also import scripts that you put into the folder with controller
-from rcj_soccer_robot import RCJSoccerRobot, TIME_STEP
+from rcj_soccer_robot import RCJSoccerRobot
 import utils
 
-
-class MyRobot(RCJSoccerRobot):
+class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
     def run(self):
-        while self.robot.step(TIME_STEP) != -1:
+        while self.robot.step(rcj_soccer_robot.TIME_STEP) != -1:
             if self.is_new_data():
                 data = self.get_new_data()
 
