@@ -5,7 +5,7 @@ team = "BLUE"
 import math
 
 # You can also import scripts that you put into the folder with controller
-from rcj_soccer_robot import RCJSoccerRobot
+import rcj_soccer_robot
 import utils
 
 class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
