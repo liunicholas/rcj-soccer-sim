@@ -18,6 +18,8 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 robot_pos = data[self.name]
                 # Get the position of the ball
                 ball_pos = data['ball']
+                b2 = data['B2']
+                b3 = data['B3']
 
                 # Get angle between the robot and the ball
                 # and between the robot and the north
@@ -29,11 +31,14 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 # If the robot has the ball right in front of it, go forward,
                 # rotate otherwise
                 if direction == 0:
-                    left_speed = -5
-                    right_speed = -5
+                    left_speed = -10
+                    right_speed = -10
+                elif direction == -1:
+                    left_speed = direction * 10
+                    right_speed = direction * -10
                 else:
-                    left_speed = direction * 4
-                    right_speed = direction * -4
+                    left_speed = direction * 10
+                    right_speed = direction * -10
 
                 # Set the speed to motors
                 self.left_motor.setVelocity(left_speed)
