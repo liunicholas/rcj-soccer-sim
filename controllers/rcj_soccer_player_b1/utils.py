@@ -1,3 +1,5 @@
+import math
+
 def get_direction(ball_angle: float) -> int:
     """Get direction to navigate robot to face the ball
 
@@ -7,17 +9,17 @@ def get_direction(ball_angle: float) -> int:
     Returns:
         int: 0 = forward, -1 = right, 1 = left
     """
-    if ball_angle >= 345 or ball_angle <= 15:
+    if ball_angle >= 340 or ball_angle <= 20:
         return 0
     return -1 if ball_angle < 180 else 1
 
-def getPointAngle(orientation, ball_pos: dict, pointX, pointY) -> Tuple[float, float]:
-    robot_angle: float = orientation
+def getPointAngle(orientation, x, y, pointX, pointY):
+    robot_angle = orientation
 
     # Get the angle between the robot and the ball
     angle = math.atan2(
-        pointY - robot_pos['y'],
-        pointX - robot_pos['x'],
+        pointY - y,
+        pointX - x,
     )
 
     if angle < 0:
