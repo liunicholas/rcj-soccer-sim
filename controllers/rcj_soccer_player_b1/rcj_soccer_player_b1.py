@@ -17,6 +17,9 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
         xbOLD = 0
         ybOLD = 0
 
+        spotX = 0.6
+        spotY = 0.2
+
         while self.robot.step(rcj_soccer_robot.TIME_STEP) != -1:
             if self.is_new_data():
                 data = self.get_new_data()
@@ -35,16 +38,22 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 b2 = data['B2']
                 b3 = data['B3']
 
-                if abs(xr-0.6)<=0.05 and abs(yr-0.2)<=0.05:
+                if abs(xr-spotX)<=0.05 and abs(yr-spotY)<=0.05:
                     SPOTONE = False
 
-                if abs(xr-0.6)<=0.05 and abs(yr+0.2)<=0.05:
+                if abs(xr-spotX)<=0.05 and abs(yr+spotY)<=0.05:
                     SPOTONE = True
 
-                if (xb-xbOLD) > 0 and xb > 0.1:
-                    BLOCK = True
+                if team != "BLUE":
+                    if (xb-xbOLD) < 0 and xb < 0.1:
+                        BLOCK = True
+                    else:
+                        BLOCK = False
                 else:
-                    BLOCK = False
+                    if (xb-xbOLD) > 0 and xb > 0.1:
+                        BLOCK = True
+                    else:
+                        BLOCK = False
 
                 if BLOCK:
                     # Get angle between the robot and the ball
@@ -70,7 +79,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     self.left_motor.setVelocity(left_speed)
                     self.right_motor.setVelocity(right_speed)
                 elif SPOTONE:
-                    robotPointAngle, robot_angle = utils.getPointAngle(orientation, xr, yr, 0.6, 0.2)
+                    robotPointAngle, robot_angle = utils.getPointAngle(orientation, xr, yr, spotX, spotY)
 
                     direction = utils.get_direction(robotPointAngle)
 
@@ -91,7 +100,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     self.right_motor.setVelocity(right_speed)
 
                 else:
-                    robotPointAngle, robot_angle = utils.getPointAngle(orientation, xr, yr, 0.6, -0.2)
+                    robotPointAngle, robot_angle = utils.getPointAngle(orientation, xr, yr, spotX, spotY*-1)
 
                     direction = utils.get_direction(robotPointAngle)
 

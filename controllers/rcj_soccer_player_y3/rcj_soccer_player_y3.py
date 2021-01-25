@@ -1,4 +1,4 @@
-team = "BLUE"
+team = "YELLOW"
 # rcj_soccer_player controller - ROBOT Y3
 
 ###### REQUIRED in order to import files from Y1 controller
