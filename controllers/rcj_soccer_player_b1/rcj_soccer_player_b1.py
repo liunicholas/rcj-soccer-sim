@@ -18,16 +18,24 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
         ball_pos_last = [0,0]
         waiting_for_ball = False
 
+        xbOLD = 0
         GETOUT = False
 
         while self.robot.step(rcj_soccer_robot.TIME_STEP) != -1:
             if self.is_new_data():
+                data = self.get_new_data()
+
+                # Get the position of the ball
+                ball_pos = data['ball']
+                xb = ball_pos['x']
+
                 if (xb-xbOLD) > 0 and xb > 0.1:
                     GETOUT = False
                 else:
                     GETOUT = True
 
-                data = self.get_new_data()
+                xbOLD = xb
+
                 # Get the position of our robot
                 robot_pos = data[self.name]
                 # Get the position of the ball
@@ -170,6 +178,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
         xbOLD = 0
         ybOLD = 0
 
+        #worth it to take the penalty
         spotX = 0.6
         spotY = 0.2
 
@@ -232,7 +241,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     # self.left_motor.setVelocity(left_speed)
                     # self.right_motor.setVelocity(right_speed)
 
-                    evanMethod(self)
+                    self.evanMethod()
 
                 elif SPOTONE:
                     robotPointAngle, robot_angle = utils.getPointAngle(orientation, xr, yr, spotX, spotY)
@@ -278,7 +287,6 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
                 xbOLD = xb
                 yBOLD = yb
-
 
 my_robot = MyRobot()
 my_robot.run()
