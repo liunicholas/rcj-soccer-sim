@@ -179,7 +179,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
         ybOLD = 0
 
         #worth it to take the penalty
-        spotX = 0.6
+        spotX = 0.65
         spotY = 0.2
 
         while self.robot.step(rcj_soccer_robot.TIME_STEP) != -1:
