@@ -18,7 +18,8 @@ import math
 
 
 class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
-    def run(self):
+
+    def evanMethod(self):
         moving = True
         shooting = False
         ball_moving = False
@@ -153,12 +154,31 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     right_speed = direction * -10
                     left_speed = direction * 10
 
+                robot_pos = data[self.name]
+                orientation = robot_pos['orientation']
+                xr = robot_pos['x']
+                yr = robot_pos['y']
+
+                # Get the position of the ball
+                ball_pos = data['ball']
+                xb = ball_pos['x']
+                yb = ball_pos['y']
+
+                b2 = data['B2']
+                b1 = data['B1']
+
+                if utils.decideWho(robot_pos,b1,ball_pos) != "you":
+                    left_speed = 0
+                    right_speed = 0
+
                 # Set the speed to motors
                 self.left_motor.setVelocity(left_speed)
                 self.right_motor.setVelocity(right_speed)
 
                 ball_pos_last = [ball_pos['x'],ball_pos['y']]
 
+    def run(self):
+        self.evanMethod()
 
 my_robot = MyRobot()
 my_robot.run()

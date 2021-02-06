@@ -374,7 +374,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     else:
                         BLOCK = False
 
-                if BLOCK and utils.decideWho(robot_pos,b2,b3,ball_pos) != "you":
+                if BLOCK and utils.decideWho(robot_pos,b2,ball_pos) != "you":
                     BLOCK = False
 
                 if ATTACK:
