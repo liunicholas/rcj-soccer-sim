@@ -84,7 +84,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     shoty = -0.64
 
                 if shotx > 0.75:
-                    shotx = 0.74
+                    shotx = 0.69
 
                 if shotx < -0.75:
                     shotx = -0.74
