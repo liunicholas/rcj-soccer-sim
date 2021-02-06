@@ -183,12 +183,13 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
         BLOCK = False
         SPOTONE = True
         SPOTTWO = False
+        ROAMCLOSE = False
         xbOLD = 0
         ybOLD = 0
 
         #worth it to take the penalty
         spotX = 0.65
-        spotY = 0.45
+        spotY = 0.5
 
         while self.robot.step(rcj_soccer_robot.TIME_STEP) != -1:
             if self.is_new_data():
@@ -231,11 +232,12 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     else:
                         BLOCK = False
 
-                if BLOCK and utils.decideWho(robot_pos,b2,ball_pos) != "you":
-                    BLOCK = False
-                    ROAMCLOSE = True
-                else:
-                    ROAMCLOSE = False
+                # DECLUMP ALGORITHM
+                # if BLOCK and utils.decideWho(robot_pos,b2,ball_pos) != "you":
+                #     BLOCK = False
+                #     ROAMCLOSE = True
+                # else:
+                #     ROAMCLOSE = False
 
                 if ROAMCLOSE:
                     print("ROAMCLOSE")

@@ -99,9 +99,25 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
                 ytarget = shoty
 
-                if xtarget > 0.1:
-                    xtarget = 0.1
+                ball_pos = data['ball']
+                xb = ball_pos['x']
+                yb = ball_pos['y']
+
+                b1 = data['B1']
+
+                bX = b1['x']
+                bY = b1['y']
+
+                bdist = math.sqrt((bX-xb)**2+(bY-yb)**2)
+
+                if bdist < 0.3:
+                    xtarget = 0.2
                     ytarget = 0
+
+                # TO KEEP THE ATTACKER ON OFFENSE
+                # if xtarget > 0.1:
+                #     xtarget = 0.1
+                #     ytarget = 0
 
                 def moveTo(x,y):
                     robot_angle_2= robot_pos['orientation']
@@ -167,9 +183,9 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 b2 = data['B2']
                 b1 = data['B1']
 
-                if utils.decideWho(robot_pos,b1,ball_pos) != "you":
-                    left_speed = 0
-                    right_speed = 0
+                # if utils.decideWho(robot_pos,b1,ball_pos) != "you" and xb < -0.2:
+                #     left_speed = 0
+                #     right_speed = 0
 
                 # Set the speed to motors
                 self.left_motor.setVelocity(left_speed)

@@ -188,7 +188,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 ball_pos = data['ball']
                 xb = ball_pos['x']
 
-                if xb < 0:
+                if xb < -0.2:
                     GETOUT = True
 
                 # Get the position of our robot
@@ -374,8 +374,9 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     else:
                         BLOCK = False
 
-                if BLOCK and utils.decideWho(robot_pos,b2,ball_pos) != "you":
-                    BLOCK = False
+                # GOALIE DECLUMP
+                # if BLOCK and utils.decideWho(robot_pos,b2,ball_pos) != "you":
+                #     BLOCK = False
 
                 if ATTACK:
                     self.evanMethod2()

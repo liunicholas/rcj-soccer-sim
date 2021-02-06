@@ -43,7 +43,7 @@ class RCJSoccerRobot:
         """
         # X, Z and rotation for each robot
         # plus X and Z for ball
-        struct_fmt = 'ddd' * 6 + 'dd'
+        struct_fmt = 'ddd' * N_ROBOTS + 'dd'
 
         unpacked = struct.unpack(struct_fmt, packet)
 
@@ -115,6 +115,8 @@ class RCJSoccerRobot:
             robot_ball_angle -= 360
 
         return robot_ball_angle, robot_angle
+
+
 
     def run(self):
         raise NotImplementedError
