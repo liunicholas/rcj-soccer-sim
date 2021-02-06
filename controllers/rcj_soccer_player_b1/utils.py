@@ -37,3 +37,27 @@ def getPointAngle(orientation, x, y, pointX, pointY):
         robotPointAngle -= 360
 
     return robotPointAngle, robot_angle
+
+def decideWho(thisBot,bot2,bot3,ball):
+    thisBotX = thisBot['x']
+    thisBotY = thisBot['y']
+
+    bot2X = bot2['x']
+    bot2Y = bot2['y']
+
+    bot3X = bot3['x']
+    bot3Y = bot3['y']
+
+    ballX = ball['x']
+    ballY = ball['y']
+
+    tDist = math.sqrt((thisBotX-ballX)**2+(thisBotY-ballY)**2)
+
+    b1Dist = math.sqrt((bot2X-ballX)**2+(bot2Y-ballY)**2)
+
+    b2Dist = math.sqrt((bot3X-ballX)**2+(bot3Y-ballY)**2)
+
+    if tDist < b1Dist and tDist < b2Dist:
+        return "you"
+    else:
+        return "not you"

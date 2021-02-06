@@ -38,10 +38,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 ball_change_x = ball_pos['x'] - ball_pos_last[0]
                 ball_change_y = ball_pos['y'] - ball_pos_last[1]
 
-                print(ball_change_x, ball_change_y)
-
-                # for x in range(10):
-
+                # print(ball_change_x, ball_change_y)
 
                 robot_angle_2= robot_pos['orientation']
 
@@ -69,7 +66,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     moving = True
                     shooting = False
 
-                print("byd"+str(ball_y_dist_from_goal))
+                # print("byd"+str(ball_y_dist_from_goal))
 
                 # shotx = bx + 0.15/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_x_dist_from_goal + 20*ball_change_x
                 shotx = bx + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_x_dist_from_goal + 10*ball_change_x
@@ -91,14 +88,19 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 if shotx < -0.75:
                     shotx = -0.74
 
-                print(ball_x_dist_from_goal)
+                # print(ball_x_dist_from_goal)
 
-                print(shotx, shoty)
+                # print(shotx, shoty)
 
 
                 #if not on wall or not behind robot and compensate for movement, improve shooting mechanism (focusing on center of goal instead of ball)
                 xtarget = shotx
+
                 ytarget = shoty
+
+                if xtarget > 0.1:
+                    xtarget = 0.1
+                    ytarget = 0
 
                 def moveTo(x,y):
                     robot_angle_2= robot_pos['orientation']
@@ -124,7 +126,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     sp = moveTo(xtarget,ytarget)
                     if abs(xtarget-rx) < 0.02 and abs(ytarget-ry) < 0.02:
                         moving = False
-                        print("DONE")
+                        # print("DONE")
                         shooting = True
                     direction = sp
 
@@ -144,8 +146,6 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
                     direction = utils.get_direction(angle2)
 
-
-
                 if direction == 0:
                     left_speed = -10
                     right_speed = -10
@@ -158,10 +158,6 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 self.right_motor.setVelocity(right_speed)
 
                 ball_pos_last = [ball_pos['x'],ball_pos['y']]
-
-
-
-
 
 
 my_robot = MyRobot()
