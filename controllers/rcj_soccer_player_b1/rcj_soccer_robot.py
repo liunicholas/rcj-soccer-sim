@@ -8,6 +8,7 @@ ROBOT_NAMES = ["B1", "B2", "B3", "Y1", "Y2", "Y3"]
 N_ROBOTS = len(ROBOT_NAMES)
 
 
+
 class RCJSoccerRobot:
     def __init__(self):
         # create the Robot instance.
