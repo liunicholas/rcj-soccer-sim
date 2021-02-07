@@ -16,7 +16,6 @@ else:
 # Feel free to import built-in libraries
 import math
 
-
 class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
     def evanMethod(self):
