@@ -168,8 +168,6 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
                     direction = utils.get_direction(angle2)
 
-
-
                 if direction == 0:
                     left_speed = -10
                     right_speed = -10
@@ -229,10 +227,16 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 # if abs(xr-spotX)<=0.05 and abs(yr+0.2)<=0.05:
                 #     SPOTTWO = True
 
-                if (xb-xbOLD) > 0 and xb > -0.1:
-                    BLOCK = True
+                if team == 1:
+                    if (xb-xbOLD) > 0 and xb > -0.1:
+                        BLOCK = True
+                    else:
+                        BLOCK = False
                 else:
-                    BLOCK = False
+                    if (xb-xbOLD) < 0 and xb < 0.1:
+                        BLOCK = True
+                    else:
+                        BLOCK = False
 
                 # DECLUMP ALGORITHM
                 # if BLOCK and utils.decideWho(robot_pos,b3,ball_pos) != "you":
@@ -290,29 +294,6 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
                 if BLOCK:
                     print("BLOCK")
-                    # # Get angle between the robot and the ball
-                    # # and between the robot and the north
-                    # ball_angle, robot_angle = self.get_angles(ball_pos, robot_pos)
-                    #
-                    # # Compute the speed for motors
-                    # direction = utils.get_direction(ball_angle)
-                    #
-                    # # If the robot has the ball right in front of it, go forward,
-                    # # rotate otherwise
-                    # if direction == 0:
-                    #     left_speed = -10
-                    #     right_speed = -10
-                    # elif direction == -1:
-                    #     left_speed = direction * 10
-                    #     right_speed = direction * -10
-                    # else:
-                    #     left_speed = direction * 10
-                    #     right_speed = direction * -10
-                    #
-                    # # Set the speed to motors
-                    # self.left_motor.setVelocity(left_speed)
-                    # self.right_motor.setVelocity(right_speed)
-
                     self.evanMethod()
 
                 elif SPOTONE:

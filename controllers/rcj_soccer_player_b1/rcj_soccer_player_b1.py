@@ -1,4 +1,3 @@
-team = "BLUE"
 # rcj_soccer_player controller - ROBOT B1
 
 # Feel free to import built-in libraries
@@ -56,8 +55,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
                 # for x in range(10):
 
-
-                robot_angle_2= robot_pos['orientation']
+                robot_angle_2 = robot_pos['orientation']
 
                 # Get angle between the robot and the ball
                 # and between the robot and the north
@@ -76,10 +74,18 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 bx = ball_pos['x']
                 by = ball_pos['y']
 
-                ball_x_dist_from_goal = abs(bx+0.75)
+                if team == 1:
+                    ball_x_dist_from_goal = abs(bx+0.75)
+                else:
+                    ball_x_dist_from_goal = abs(bx-0.75)
+
                 ball_y_dist_from_goal = by
 
-                if (rx-0.05<bx):
+                if team == 1:
+                    if (rx-0.05<bx):
+                        moving = True
+                        shooting = False
+                elif (rx+0.05>bx):
                     moving = True
                     shooting = False
 
@@ -103,7 +109,6 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     shotx = -0.75
 
 
-
                 # print(ball_x_dist_from_goal)
 
                 # print(shotx, shoty)
@@ -114,7 +119,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 ytarget = shoty
 
                 def moveTo(x,y):
-                    robot_angle_2= robot_pos['orientation']
+                    robot_angle_2 = robot_pos['orientation']
 
                     angle = math.atan2(
                         y - robot_pos['y'],
@@ -157,8 +162,6 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
                     direction = utils.get_direction(angle2)
 
-
-
                 if direction == 0:
                     left_speed = -10
                     right_speed = -10
@@ -196,8 +199,12 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 ball_pos = data['ball']
                 xb = ball_pos['x']
 
-                if xb < -0.2:
-                    GETOUT = True
+                if team == 1:
+                    if xb < -0.2:
+                        GETOUT = True
+                else:
+                    if xb > 0.2:
+                        GETOUT = True
 
                 # Get the position of our robot
                 robot_pos = data[self.name]
@@ -214,8 +221,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
                 # for x in range(10):
 
-
-                robot_angle_2= robot_pos['orientation']
+                robot_angle_2 = robot_pos['orientation']
 
                 # Get angle between the robot and the ball
                 # and between the robot and the north
@@ -224,17 +230,19 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 # Compute the speed for motors
                 direction = utils.get_direction(ball_angle)
 
-
                 # If the robot has the ball right in front of it, go forward,
                 # rotate otherwise
-
 
                 rx = robot_pos['x']
                 ry = robot_pos['y']
                 bx = ball_pos['x']
                 by = ball_pos['y']
 
-                ball_x_dist_from_goal = abs(bx+0.75)
+                if team == 1:
+                    ball_x_dist_from_goal = abs(bx+0.75)
+                else:
+                    ball_x_dist_from_goal = abs(bx-0.75)
+
                 ball_y_dist_from_goal = by
 
                 if team == 1:
@@ -387,6 +395,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 if abs(xr-spotX)<=0.05 and abs(yr+spotY)<=0.05:
                     SPOTONE = True
 
+                #universal
                 if abs(xb-0) < 0.1 and abs(yb-0) < 0.1:
                     ATTACK = True
 
