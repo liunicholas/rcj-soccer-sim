@@ -36,7 +36,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 ball_change_x = ball_pos['x'] - ball_pos_last[0]
                 ball_change_y = ball_pos['y'] - ball_pos_last[1]
 
-                # print(ball_change_x, ball_change_y)
+                print(ball_change_x, ball_change_y)
 
                 # for x in range(10):
 
@@ -70,7 +70,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
                 # shotx = bx + 0.15/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_x_dist_from_goal + 20*ball_change_x
                 shotx = bx + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_x_dist_from_goal + 10*ball_change_x
-                # print("shotx "+ str(shotx))
+                print("shotx "+ str(shotx))
                 shoty = by + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal + 23*ball_change_y
 
                 if shoty > 0.65:
@@ -119,7 +119,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     sp = moveTo(xtarget,ytarget)
                     if abs(xtarget-rx) < 0.02 and abs(ytarget-ry) < 0.02:
                         moving = False
-                        # print("DONE")
+                        print("DONE")
                         shooting = True
                     direction = sp
 
