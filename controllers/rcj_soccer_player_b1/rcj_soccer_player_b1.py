@@ -176,7 +176,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
         ball_moving = False
         ball_pos_last = [0,0]
         waiting_for_ball = False
-
+        team = -1
         GETOUT = False
 
         while self.robot.step(rcj_soccer_robot.TIME_STEP) != -1:
@@ -228,7 +228,11 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 ball_x_dist_from_goal = abs(bx+0.75)
                 ball_y_dist_from_goal = by
 
-                if (rx-0.05<bx):
+                if team == 1:
+                    if (rx-0.05<bx):
+                        moving = True
+                        shooting = False
+                elif (rx+0.05>bx):
                     moving = True
                     shooting = False
 
@@ -242,16 +246,16 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 # if shoty > 0.65:
                 #     shoty = shoty = by + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal+ 23*ball_change_y
 
-                if shoty > 0.65:
-                    shoty = 0.55
+                if shoty > 0.60:
+                    shoty = 0.60
 
-                if shoty < -0.65:
-                    shoty = -0.55
+                if shoty < -0.60:
+                    shoty = -0.60
 
-                if shotx > 0.75:
+                if shotx > 0.65:
                     shotx = 0.75
 
-                if shotx < -0.75:
+                if shotx < -0.65:
                     shotx = -0.75
 
                 # print(ball_x_dist_from_goal)
@@ -292,10 +296,16 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     direction = sp
 
                 if shooting:
-                    angle = math.atan2(
-                        -robot_pos['y'],
-                        -0.75 - robot_pos['x'],
-                    )
+                    if team == 1:
+                        angle = math.atan2(
+                            -robot_pos['y'],
+                            -0.75 - robot_pos['x'],
+                        )
+                    else:
+                        angle = math.atan2(
+                            -robot_pos['y'],
+                            0.75 - robot_pos['x'],
+                        )
                     if angle < 0:
                         angle = 2 * math.pi + angle
                     if robot_angle_2 < 0:
@@ -332,8 +342,13 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
         ybOLD = 0
 
         #worth it to take the penalty
-        spotX = 0.3
         spotY = 0.1
+
+        if team == 1:
+            spotX = 0.3
+        else:
+            spotX = -0.3
+
 
         while self.robot.step(rcj_soccer_robot.TIME_STEP) != -1:
             if self.is_new_data():
@@ -362,7 +377,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 if abs(xb-0) < 0.1 and abs(yb-0) < 0.1:
                     ATTACK = True
 
-                if team != "BLUE":
+                if team == -1:
                     if (xb-xbOLD) < 0 and xb < 0.1:
                         BLOCK = True
                     else:

@@ -27,8 +27,12 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
         xbOLD = 0
         GETOUT = False
+        team = -1
 
         while self.robot.step(rcj_soccer_robot.TIME_STEP) != -1:
+            if self.name[0] == 'B':
+                team = 1
+
             if self.is_new_data():
                 data = self.get_new_data()
 
@@ -81,7 +85,11 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 ball_x_dist_from_goal = abs(bx+0.75)
                 ball_y_dist_from_goal = by
 
-                if (rx-0.05<bx):
+                if team == 1:
+                    if (rx-0.05<bx):
+                        moving = True
+                        shooting = False
+                elif (rx+0.05>bx):
                     moving = True
                     shooting = False
 

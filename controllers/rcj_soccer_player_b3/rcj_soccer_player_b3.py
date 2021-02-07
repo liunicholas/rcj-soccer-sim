@@ -25,7 +25,12 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
         ball_moving = False
         ball_pos_last = [0,0]
         waiting_for_ball = False
+        team = -1
+
         while self.robot.step(rcj_soccer_robot.TIME_STEP) != -1:
+            if self.name[0] == 'B':
+                team = 1
+
             if self.is_new_data():
                 data = self.get_new_data()
                 # Get the position of our robot
@@ -59,14 +64,20 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 ry = robot_pos['y']
                 bx = ball_pos['x']
                 by = ball_pos['y']
+                if team == 1:
+                    ball_x_dist_from_goal = abs(bx+0.75)
+                else:
+                    ball_x_dist_from_goal = bx-0.75
 
-                ball_x_dist_from_goal = abs(bx+0.75)
                 ball_y_dist_from_goal = by
 
-                if (rx-0.05<bx):
+                if team == 1:
+                    if (rx-0.05<bx):
+                        moving = True
+                        shooting = False
+                elif (rx+0.05>bx):
                     moving = True
                     shooting = False
-
                 # print("byd"+str(ball_y_dist_from_goal))
 
                 # shotx = bx + 0.15/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_x_dist_from_goal + 20*ball_change_x
@@ -74,19 +85,20 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
                 shoty = by + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal + 23*ball_change_y
 
+
                 if shoty > 0.65:
                     shoty = shoty = by + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal+ 23*ball_change_y
 
                     if shoty > 0.65:
-                        shoty = 0.64
+                        shoty = 0.65
 
                 if shoty < -0.65:
-                    shoty = -0.64
+                    shoty = -0.65
 
-                if shotx > 0.75:
+                if shotx > 0.65:
                     shotx = 0.75
 
-                if shotx < -0.75:
+                if shotx < -0.65:
                     shotx = -0.75
 
                 # print(ball_x_dist_from_goal)
@@ -103,7 +115,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 xb = ball_pos['x']
                 yb = ball_pos['y']
 
-                b1 = data['B1']
+                b1 = data[self.name]
 
                 bX = b1['x']
                 bY = b1['y']
@@ -148,10 +160,16 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     direction = sp
 
                 if shooting:
-                    angle = math.atan2(
-                        -robot_pos['y'],
-                        -0.75 - robot_pos['x'],
-                    )
+                    if team == 1:
+                        angle = math.atan2(
+                            -robot_pos['y'],
+                            -0.75 - robot_pos['x'],
+                        )
+                    else:
+                        angle = math.atan2(
+                            -robot_pos['y'],
+                            0.75 - robot_pos['x'],
+                        )
                     if angle < 0:
                         angle = 2 * math.pi + angle
                     if robot_angle_2 < 0:
@@ -170,24 +188,6 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     right_speed = direction * -10
                     left_speed = direction * 10
 
-                robot_pos = data[self.name]
-                orientation = robot_pos['orientation']
-                xr = robot_pos['x']
-                yr = robot_pos['y']
-
-                # Get the position of the ball
-                ball_pos = data['ball']
-                xb = ball_pos['x']
-                yb = ball_pos['y']
-
-                b2 = data['B2']
-                b1 = data['B1']
-
-                # if utils.decideWho(robot_pos,b1,ball_pos) != "you" and xb < -0.2:
-                #     left_speed = 0
-                #     right_speed = 0
-
-                # Set the speed to motors
                 self.left_motor.setVelocity(left_speed)
                 self.right_motor.setVelocity(right_speed)
 
