@@ -400,7 +400,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     ATTACK = True
 
                 if team == -1:
-                    if (xb-xbOLD) < 0 and xb < 0.1:
+                    if (xb-xbOLD) < 0 and xb < -0.1:
                         BLOCK = True
                     else:
                         BLOCK = False

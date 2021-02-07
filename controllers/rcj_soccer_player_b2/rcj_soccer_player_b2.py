@@ -63,7 +63,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 # for x in range(10):
 
 
-                robot_angle_2= robot_pos['orientation']
+                robot_angle_2 = robot_pos['orientation']
 
                 # Get angle between the robot and the ball
                 # and between the robot and the north
@@ -194,12 +194,21 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
         ybOLD = 0
 
         #worth it to take the penalty
-        spotX = 0.55
         spotY = 0.1
 
         while self.robot.step(rcj_soccer_robot.TIME_STEP) != -1:
             if self.is_new_data():
                 data = self.get_new_data()
+
+                if self.name[0] == 'B':
+                    team = 1
+                else:
+                    team = -1
+
+                if team == 1:
+                    spotX = 0.55
+                else:
+                    spotX = -0.55
 
                 # Get the position of our robot
                 robot_pos = data[self.name]
