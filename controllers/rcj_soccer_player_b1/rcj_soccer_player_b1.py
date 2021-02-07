@@ -25,6 +25,11 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
             if self.is_new_data():
                 data = self.get_new_data()
 
+                if self.name[0] == 'B':
+                    team = 1
+                else:
+                    team = -1
+
                 # Get the position of the ball
                 ball_pos = data['ball']
                 xb = ball_pos['x']
@@ -176,12 +181,16 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
         ball_moving = False
         ball_pos_last = [0,0]
         waiting_for_ball = False
-        team = -1
         GETOUT = False
 
         while self.robot.step(rcj_soccer_robot.TIME_STEP) != -1:
             if self.is_new_data():
                 data = self.get_new_data()
+
+                if self.name[0] == 'B':
+                    team = 1
+                else:
+                    team = -1
 
                 # Get the position of the ball
                 ball_pos = data['ball']
@@ -344,15 +353,19 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
         #worth it to take the penalty
         spotY = 0.1
 
-        if team == 1:
-            spotX = 0.3
-        else:
-            spotX = -0.3
-
-
         while self.robot.step(rcj_soccer_robot.TIME_STEP) != -1:
             if self.is_new_data():
                 data = self.get_new_data()
+
+                if self.name[0] == 'B':
+                    team = 1
+                else:
+                    team = -1
+
+                if team == 1:
+                    spotX = 0.3
+                else:
+                    spotX = -0.3
 
                 # Get the position of our robot
                 robot_pos = data[self.name]
