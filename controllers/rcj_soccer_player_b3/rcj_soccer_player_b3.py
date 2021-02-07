@@ -93,10 +93,10 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     shoty = -0.65
 
                 if shotx > 0.65:
-                    shotx = 0.75
+                    shotx = 0.60
 
                 if shotx < -0.65:
-                    shotx = -0.75
+                    shotx = -0.60
 
                 # print(ball_x_dist_from_goal)
 
