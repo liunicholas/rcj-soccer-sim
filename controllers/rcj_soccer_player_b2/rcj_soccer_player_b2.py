@@ -1,4 +1,4 @@
-team = "BLUE"
+team = "YELLOW"
 # rcj_soccer_player controller - ROBOT B3
 
 ###### REQUIRED in order to import files from B1 controller
@@ -18,11 +18,10 @@ import math
 
 class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
-    def evanMethod(self):
+    def evanMethod(self,ball_pos_last):
         moving = True
         shooting = False
         ball_moving = False
-        ball_pos_last = [0,0]
         waiting_for_ball = False
 
         xbOLD = 0
@@ -39,11 +38,16 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 # Get the position of the ball
                 ball_pos = data['ball']
                 xb = ball_pos['x']
-
-                if (xb-xbOLD) > 0 and xb > 0.1:
-                    GETOUT = False
+                if team == 1:
+                    if (xb-xbOLD) > 0 and xb > 0.1:
+                        GETOUT = False
+                    else:
+                        GETOUT = True
                 else:
-                    GETOUT = True
+                    if (xb-xbOLD) > 0 and xb < -0.1:
+                        GETOUT = False
+                    else:
+                        GETOUT = True
 
                 xbOLD = xb
 
@@ -55,15 +59,19 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 if not (ball_pos['x'] == ball_pos_last[0]) and not (ball_pos['y']==ball_pos_last[0]):
                     ball_moving = True
 
+                print("bl" + str(ball_pos_last[1]))
+
                 ball_change_x = ball_pos['x'] - ball_pos_last[0]
                 ball_change_y = ball_pos['y'] - ball_pos_last[1]
 
                 # print(ball_change_x, ball_change_y)
 
+                print("ball_change_y: " + str(ball_change_y))
+
                 # for x in range(10):
 
 
-                robot_angle_2= robot_pos['orientation']
+                robot_angle_2 = robot_pos['orientation']
 
                 # Get angle between the robot and the ball
                 # and between the robot and the north
@@ -82,7 +90,11 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 bx = ball_pos['x']
                 by = ball_pos['y']
 
-                ball_x_dist_from_goal = abs(bx+0.75)
+                if team == 1:
+                    ball_x_dist_from_goal = abs(bx+0.75)
+                else:
+                    ball_x_dist_from_goal = bx-0.75
+
                 ball_y_dist_from_goal = by
 
                 if team == 1:
@@ -98,7 +110,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 # shotx = bx + 0.15/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_x_dist_from_goal + 20*ball_change_x
                 shotx = bx + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_x_dist_from_goal + 10*ball_change_x
 
-                shoty = by + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal + 20*ball_change_y
+                shoty = by + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal + 5*ball_change_y
 
                 # if shoty > 0.65:
                 #     shoty = shoty = by + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal+ 23*ball_change_y
@@ -108,11 +120,15 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 if shoty < -0.50:
                     shoty = -0.50
 
-                if shotx > 0.65:
+                if shotx > 0.75:
                     shotx = 0.75
 
-                if shotx < -0.65:
+                if shotx < -0.75:
                     shotx = -0.75
+
+                print("shoty: " + str(shoty) )
+                print("by" + str(by))
+                print("ry" + str(ry))
 
                 # print(ball_x_dist_from_goal)
 
@@ -153,10 +169,16 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     direction = sp
 
                 if shooting:
-                    angle = math.atan2(
-                        -robot_pos['y'],
-                        -0.75 - robot_pos['x'],
-                    )
+                    if team == 1:
+                        angle = math.atan2(
+                            -robot_pos['y'],
+                            -0.75 - robot_pos['x'],
+                        )
+                    else:
+                        angle = math.atan2(
+                            -robot_pos['y'],
+                            0.75 - robot_pos['x'],
+                        )
                     if angle < 0:
                         angle = 2 * math.pi + angle
                     if robot_angle_2 < 0:
@@ -167,8 +189,6 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                         angle2 -= 360
 
                     direction = utils.get_direction(angle2)
-
-
 
                 if direction == 0:
                     left_speed = -10
@@ -194,14 +214,24 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
         ROAMCLOSE = False
         xbOLD = 0
         ybOLD = 0
+        ball_pos_last = [0,0]
 
         #worth it to take the penalty
-        spotX = 0.55
         spotY = 0.1
 
         while self.robot.step(rcj_soccer_robot.TIME_STEP) != -1:
             if self.is_new_data():
                 data = self.get_new_data()
+
+                if self.name[0] == 'B':
+                    team = 1
+                else:
+                    team = -1
+
+                if team == 1:
+                    spotX = 0.55
+                else:
+                    spotX = -0.55
 
                 # Get the position of our robot
                 robot_pos = data[self.name]
@@ -223,100 +253,21 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 if abs(xr-spotX)<=0.05 and abs(yr+spotY)<=0.05:
                     SPOTONE = True
 
-                # if abs(xr-spotX)<=0.05 and abs(yr-0.2)<=0.05:
-                #     SPOTTWO = False
-                #
-                # if abs(xr-spotX)<=0.05 and abs(yr+0.2)<=0.05:
-                #     SPOTTWO = True
-
-                if (xb-xbOLD) > 0 and xb > -0.1:
-                    BLOCK = True
+                if team == 1:
+                    if (xb-xbOLD) > 0 and xb > -0.1:
+                        BLOCK = True
+                    else:
+                        BLOCK = False
                 else:
-                    BLOCK = False
-
-                # DECLUMP ALGORITHM
-                # if BLOCK and utils.decideWho(robot_pos,b3,ball_pos) != "you":
-                #     ROAMCLOSE = True
-                # elif abs(b1['x']-0) < 0.1 and abs(b1['y']-0) < 0.1:
-                #     ROAMCLOSE = True
-                # elif math.sqrt((xb-0.75)**2+(yb)**2) < 0.45:
-                #     ROAMCLOSE = True
-                # else:
-                #     ROAMCLOSE = False
-
-                # if ROAMCLOSE:
-                #     print("ROAMCLOSE")
-                #     if SPOTTWO:
-                #         robotPointAngle, robot_angle = utils.getPointAngle(orientation, xr, yr, spotX, 0.2)
-                #
-                #         direction = utils.get_direction(robotPointAngle)
-                #
-                #         # If the robot has the ball right in front of it, go forward,
-                #         # rotate otherwise
-                #         if direction == 0:
-                #             left_speed = -10
-                #             right_speed = -10
-                #         elif direction == -1:
-                #             left_speed = direction * 10
-                #             right_speed = direction * -10
-                #         else:
-                #             left_speed = direction * 10
-                #             right_speed = direction * -10
-                #
-                #         # Set the speed to motors
-                #         self.left_motor.setVelocity(left_speed)
-                #         self.right_motor.setVelocity(right_speed)
-                #
-                #     else:
-                #         robotPointAngle, robot_angle = utils.getPointAngle(orientation, xr, yr, spotX, -0.2)
-                #
-                #         direction = utils.get_direction(robotPointAngle)
-                #
-                #         # If the robot has the ball right in front of it, go forward,
-                #         # rotate otherwise
-                #         if direction == 0:
-                #             left_speed = -10
-                #             right_speed = -10
-                #         elif direction == -1:
-                #             left_speed = direction * 10
-                #             right_speed = direction * -10
-                #         else:
-                #             left_speed = direction * 10
-                #             right_speed = direction * -10
-                #
-                #         # Set the speed to motors
-                #         self.left_motor.setVelocity(left_speed)
-                #         self.right_motor.setVelocity(right_speed)
+                    if (xb-xbOLD) < 0 and xb < 0.1:
+                        BLOCK = True
+                    else:
+                        BLOCK = False
 
                 if BLOCK:
-                    print("BLOCK")
-                    # # Get angle between the robot and the ball
-                    # # and between the robot and the north
-                    # ball_angle, robot_angle = self.get_angles(ball_pos, robot_pos)
-                    #
-                    # # Compute the speed for motors
-                    # direction = utils.get_direction(ball_angle)
-                    #
-                    # # If the robot has the ball right in front of it, go forward,
-                    # # rotate otherwise
-                    # if direction == 0:
-                    #     left_speed = -10
-                    #     right_speed = -10
-                    # elif direction == -1:
-                    #     left_speed = direction * 10
-                    #     right_speed = direction * -10
-                    # else:
-                    #     left_speed = direction * 10
-                    #     right_speed = direction * -10
-                    #
-                    # # Set the speed to motors
-                    # self.left_motor.setVelocity(left_speed)
-                    # self.right_motor.setVelocity(right_speed)
-
-                    self.evanMethod()
+                    self.evanMethod(ball_pos_last)
 
                 elif SPOTONE:
-                    print("SPOT ONE")
                     robotPointAngle, robot_angle = utils.getPointAngle(orientation, xr, yr, spotX, spotY)
 
                     direction = utils.get_direction(robotPointAngle)
@@ -338,7 +289,6 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     self.right_motor.setVelocity(right_speed)
 
                 else:
-                    print("SPOT ONE")
                     robotPointAngle, robot_angle = utils.getPointAngle(orientation, xr, yr, spotX, spotY*-1)
 
                     direction = utils.get_direction(robotPointAngle)
@@ -361,6 +311,8 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
                 xbOLD = xb
                 yBOLD = yb
+                ball_pos_last = [ball_pos['x'],ball_pos['y']]
+
 
 my_robot = MyRobot()
 my_robot.run()

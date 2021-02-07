@@ -1,13 +1,15 @@
-# rcj_soccer_player controller - ROBOT B2
-
+# rcj_soccer_player controller - ROBOT B3
+team = "YELLOW"
 ###### REQUIRED in order to import files from B1 controller
 import sys
 from pathlib import Path
 sys.path.append(str(Path('.').absolute().parent))
 # You can now import scripts that you put into the folder with your
 # robot B1 controller
-from rcj_soccer_player_b1 import rcj_soccer_robot, utils
-
+if team == "BLUE":
+    from rcj_soccer_player_b1 import rcj_soccer_robot, utils
+else:
+    from rcj_soccer_player_y1 import rcj_soccer_robot, utils
 ######
 
 # Feel free to import built-in libraries
@@ -87,15 +89,15 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     shoty = shoty = by + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal+ 23*ball_change_y
 
                     if shoty > 0.65:
-                        shoty = 0.64
+                        shoty = 0.65
 
                 if shoty < -0.65:
-                    shoty = -0.64
+                    shoty = -0.65
 
-                if shotx > 0.75:
+                if shotx > 0.65:
                     shotx = 0.75
 
-                if shotx < -0.75:
+                if shotx < -0.65:
                     shotx = -0.75
 
                 # print(ball_x_dist_from_goal)

@@ -1,15 +1,13 @@
 # rcj_soccer_player controller - ROBOT B3
-team = "YELLOW"
+
 ###### REQUIRED in order to import files from B1 controller
 import sys
 from pathlib import Path
 sys.path.append(str(Path('.').absolute().parent))
 # You can now import scripts that you put into the folder with your
 # robot B1 controller
-if team == "BLUE":
-    from rcj_soccer_player_b1 import rcj_soccer_robot, utils
-else:
-    from rcj_soccer_player_y1 import rcj_soccer_robot, utils
+
+from rcj_soccer_player_d1 import rcj_soccer_robot, utils
 ######
 
 # Feel free to import built-in libraries
