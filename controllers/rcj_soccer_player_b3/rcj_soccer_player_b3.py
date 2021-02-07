@@ -11,8 +11,6 @@ if team == "BLUE":
 else:
     from rcj_soccer_player_y1 import rcj_soccer_robot, utils
 ######
-
-# Feel free to import built-in libraries
 import math
 
 

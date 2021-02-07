@@ -59,14 +59,13 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 if not (ball_pos['x'] == ball_pos_last[0]) and not (ball_pos['y']==ball_pos_last[0]):
                     ball_moving = True
 
-                print("bl" + str(ball_pos_last[1]))
+
 
                 ball_change_x = ball_pos['x'] - ball_pos_last[0]
                 ball_change_y = ball_pos['y'] - ball_pos_last[1]
 
                 # print(ball_change_x, ball_change_y)
 
-                print("ball_change_y: " + str(ball_change_y))
 
                 # for x in range(10):
 
@@ -125,10 +124,6 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
                 if shotx < -0.75:
                     shotx = -0.75
-
-                print("shoty: " + str(shoty) )
-                print("by" + str(by))
-                print("ry" + str(ry))
 
                 # print(ball_x_dist_from_goal)
 
