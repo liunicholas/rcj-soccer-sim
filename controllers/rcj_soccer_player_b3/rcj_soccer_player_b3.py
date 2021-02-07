@@ -136,11 +136,11 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                         angle2 -= 360
 
                     d2 = utils.get_direction(angle2)
-                    return d2
+                    return d2, angle2
 
 
                 if moving:
-                    sp = moveTo(xtarget,ytarget)
+                    sp, angle2 = moveTo(xtarget,ytarget)
                     if abs(xtarget-rx) < 0.02 and abs(ytarget-ry) < 0.02:
                         moving = False
                         # print("DONE")
@@ -164,8 +164,19 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     direction = utils.get_direction(angle2)
 
                 if direction == 0:
-                    left_speed = -10
-                    right_speed = -10
+                    # left_speed = -10
+                    # right_speed = -10
+                    direction2 = utils.get_directionMore(angle2)
+                    # print(direction * -10 * (1-abs(angle2-180)/160) * 2)
+                    if direction2 == -1:
+                        right_speed = -5
+                        left_speed = -10
+                    elif direction2 == 1:
+                        right_speed = -10
+                        left_speed = -5
+                    else:
+                        left_speed = -10
+                        right_speed = -10
                 else:
                     right_speed = direction * -10
                     left_speed = direction * 10

@@ -281,7 +281,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 #         self.right_motor.setVelocity(right_speed)
 
                 if BLOCK:
-                    print("BLOCK")
+                    # print("BLOCK")
                     # # Get angle between the robot and the ball
                     # # and between the robot and the north
                     # ball_angle, robot_angle = self.get_angles(ball_pos, robot_pos)
@@ -308,7 +308,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     self.evanMethod()
 
                 elif SPOTONE:
-                    print("SPOT ONE")
+                    # print("SPOT ONE")
                     robotPointAngle, robot_angle = utils.getPointAngle(orientation, xr, yr, spotX, spotY)
 
                     direction = utils.get_direction(robotPointAngle)
@@ -330,7 +330,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     self.right_motor.setVelocity(right_speed)
 
                 else:
-                    print("SPOT ONE")
+                    # print("SPOT ONE")
                     robotPointAngle, robot_angle = utils.getPointAngle(orientation, xr, yr, spotX, spotY*-1)
 
                     direction = utils.get_direction(robotPointAngle)
