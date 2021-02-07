@@ -84,10 +84,10 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     shoty = -0.64
 
                 if shotx > 0.75:
-                    shotx = 0.74
+                    shotx = 0.75
 
                 if shotx < -0.75:
-                    shotx = -0.74
+                    shotx = -0.75
 
                 # print(ball_x_dist_from_goal)
 
@@ -110,15 +110,15 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
                 bdist = math.sqrt((bX-xb)**2+(bY-yb)**2)
 
-                if bdist < 0.3:
-                    xtarget = 0.2
-                    ytarget = 0
-
-                # TO KEEP THE ATTACKER ON OFFENSE
-                # if xtarget > 0.1:
-                #     xtarget = 0.1
+                # if bdist < 0.1:
+                #     xtarget = 0.2
                 #     ytarget = 0
 
+                # TO KEEP THE ATTACKER ON OFFENSE
+                # if (xtarget > 0.2 and bdist > 0.1) or xtarget > 0.4:
+                #     xtarget = 0.12
+                #     ytarget = 0
+                #
                 def moveTo(x,y):
                     robot_angle_2= robot_pos['orientation']
 

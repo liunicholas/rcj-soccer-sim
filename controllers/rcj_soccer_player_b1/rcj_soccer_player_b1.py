@@ -85,20 +85,19 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
                 shoty = by + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal + 23*ball_change_y
 
-                if shoty > 0.65:
-                    shoty = shoty = by + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal+ 23*ball_change_y
+                if shoty > 0.50:
+                    shoty = 0.50
 
-                    if shoty > 0.65:
-                        shoty = 0.64
+                if shoty < -0.50:
+                    shoty = -0.50
 
-                if shoty < -0.65:
-                    shoty = -0.64
+                if shotx > 0.65:
+                    shotx = 0.75
 
-                if shotx > 0.75:
-                    shotx = 0.74
+                if shotx < -0.65:
+                    shotx = -0.75
 
-                if shotx < -0.75:
-                    shotx = -0.74
+
 
                 # print(ball_x_dist_from_goal)
 
@@ -240,20 +239,20 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
                 shoty = by + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal + 23*ball_change_y
 
-                if shoty > 0.65:
-                    shoty = shoty = by + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal+ 23*ball_change_y
+                # if shoty > 0.65:
+                #     shoty = shoty = by + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal+ 23*ball_change_y
 
-                    if shoty > 0.65:
-                        shoty = 0.64
+                if shoty > 0.65:
+                    shoty = 0.55
 
                 if shoty < -0.65:
-                    shoty = -0.64
+                    shoty = -0.55
 
                 if shotx > 0.75:
-                    shotx = 0.74
+                    shotx = 0.75
 
                 if shotx < -0.75:
-                    shotx = -0.74
+                    shotx = -0.75
 
                 # print(ball_x_dist_from_goal)
 
@@ -333,8 +332,8 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
         ybOLD = 0
 
         #worth it to take the penalty
-        spotX = 0.4
-        spotY = 0.2
+        spotX = 0.3
+        spotY = 0.1
 
         while self.robot.step(rcj_soccer_robot.TIME_STEP) != -1:
             if self.is_new_data():

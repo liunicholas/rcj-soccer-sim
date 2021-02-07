@@ -8,6 +8,7 @@ ROBOT_NAMES = ["B1", "B2", "B3", "Y1", "Y2", "Y3"]
 N_ROBOTS = len(ROBOT_NAMES)
 
 
+
 class RCJSoccerRobot:
     def __init__(self):
         # create the Robot instance.
@@ -43,7 +44,7 @@ class RCJSoccerRobot:
         """
         # X, Z and rotation for each robot
         # plus X and Z for ball
-        struct_fmt = 'ddd' * 6 + 'dd'
+        struct_fmt = 'ddd' * N_ROBOTS + 'dd'
 
         unpacked = struct.unpack(struct_fmt, packet)
 

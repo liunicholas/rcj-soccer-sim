@@ -90,22 +90,21 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 # shotx = bx + 0.15/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_x_dist_from_goal + 20*ball_change_x
                 shotx = bx + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_x_dist_from_goal + 10*ball_change_x
 
-                shoty = by + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal + 23*ball_change_y
+                shoty = by + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal + 20*ball_change_y
 
-                if shoty > 0.65:
-                    shoty = shoty = by + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal+ 23*ball_change_y
+                # if shoty > 0.65:
+                #     shoty = shoty = by + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal+ 23*ball_change_y
+                if shoty > 0.50:
+                    shoty = 0.50
 
-                    if shoty > 0.65:
-                        shoty = 0.64
+                if shoty < -0.50:
+                    shoty = -0.50
 
-                if shoty < -0.65:
-                    shoty = -0.64
+                if shotx > 0.65:
+                    shotx = 0.75
 
-                if shotx > 0.75:
-                    shotx = 0.74
-
-                if shotx < -0.75:
-                    shotx = -0.74
+                if shotx < -0.65:
+                    shotx = -0.75
 
                 # print(ball_x_dist_from_goal)
 
@@ -116,8 +115,6 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 xtarget = shotx
                 ytarget = shoty
 
-                if xtarget < 0.65:
-                    xtarget = 0.65
 
                 def moveTo(x,y):
                     robot_angle_2= robot_pos['orientation']
@@ -192,7 +189,7 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
         #worth it to take the penalty
         spotX = 0.55
-        spotY = 0.5
+        spotY = 0.1
 
         while self.robot.step(rcj_soccer_robot.TIME_STEP) != -1:
             if self.is_new_data():

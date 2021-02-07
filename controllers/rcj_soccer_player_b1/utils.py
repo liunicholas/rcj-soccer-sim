@@ -2,10 +2,8 @@ import math
 
 def get_direction(ball_angle: float) -> int:
     """Get direction to navigate robot to face the ball
-
     Args:
         ball_angle (float): Angle between the ball and the robot
-
     Returns:
         int: 0 = forward, -1 = right, 1 = left
     """
