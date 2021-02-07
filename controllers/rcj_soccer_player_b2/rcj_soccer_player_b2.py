@@ -94,17 +94,16 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
                 # if shoty > 0.65:
                 #     shoty = shoty = by + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal+ 23*ball_change_y
-                if shoty > 0.65:
-                    shoty = 0.64
+                if shoty > 0.50:
+                    shoty = 0.50
 
-                if shoty < -0.65:
-                    shoty = -0.64
+                if shoty < -0.50:
+                    shoty = -0.50
 
-
-                if shotx > 0.75:
+                if shotx > 0.65:
                     shotx = 0.75
 
-                if shotx < -0.75:
+                if shotx < -0.65:
                     shotx = -0.75
 
                 # print(ball_x_dist_from_goal)
