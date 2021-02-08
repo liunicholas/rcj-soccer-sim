@@ -11,8 +11,6 @@ if team == "BLUE":
 else:
     from rcj_soccer_player_y1 import rcj_soccer_robot, utils
 ######
-
-# Feel free to import built-in libraries
 import math
 
 
@@ -95,10 +93,10 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     shoty = -0.65
 
                 if shotx > 0.65:
-                    shotx = 0.75
+                    shotx = 0.60
 
                 if shotx < -0.65:
-                    shotx = -0.75
+                    shotx = -0.60
 
                 # print(ball_x_dist_from_goal)
 
@@ -109,6 +107,16 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 xtarget = shotx
 
                 ytarget = shoty
+
+                if team == 1:
+                    if xtarget > 0.2:
+                        xtarget = 0.2
+                        ytarget = 0
+                else:
+                    if xtarget < -0.2:
+                        xtarget = -0.2
+                        ytarget = 0
+
 
                 ball_pos = data['ball']
                 xb = ball_pos['x']

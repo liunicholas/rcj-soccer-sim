@@ -108,6 +108,16 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
 
                 ytarget = shoty
 
+                if team == 1:
+                    if xtarget > 0.2:
+                        xtarget = 0.2
+                        ytarget = 0
+                else:
+                    if xtarget < -0.2:
+                        xtarget = -0.2
+                        ytarget = 0
+
+
                 ball_pos = data['ball']
                 xb = ball_pos['x']
                 yb = ball_pos['y']

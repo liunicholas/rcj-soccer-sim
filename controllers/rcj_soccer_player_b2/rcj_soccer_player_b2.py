@@ -251,12 +251,12 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     SPOTONE = True
 
                 if team == 1:
-                    if xb > 0.3:
+                    if xb > 0.15:
                         BLOCK = True
                     else:
                         BLOCK = False
                 else:
-                    if  xb < -0.3:
+                    if  xb < -0.15:
                         BLOCK = True
                     else:
                         BLOCK = False

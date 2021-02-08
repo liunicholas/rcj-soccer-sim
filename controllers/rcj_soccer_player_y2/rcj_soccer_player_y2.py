@@ -59,14 +59,13 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 if not (ball_pos['x'] == ball_pos_last[0]) and not (ball_pos['y']==ball_pos_last[0]):
                     ball_moving = True
 
-                print("bl" + str(ball_pos_last[1]))
+
 
                 ball_change_x = ball_pos['x'] - ball_pos_last[0]
                 ball_change_y = ball_pos['y'] - ball_pos_last[1]
 
                 # print(ball_change_x, ball_change_y)
 
-                print("ball_change_y: " + str(ball_change_y))
 
                 # for x in range(10):
 
@@ -110,25 +109,23 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 # shotx = bx + 0.15/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_x_dist_from_goal + 20*ball_change_x
                 shotx = bx + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_x_dist_from_goal
 
-                shoty = by + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal + 23*ball_change_y
+                shoty = by + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal+ 10*ball_change_y
 
                 # if shoty > 0.65:
                 #     shoty = shoty = by + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal+ 23*ball_change_y
-                if shoty > 0.33:
-                    shoty = 0.33
 
-                if shoty < -0.33:
-                    shoty = -0.33
 
-                if shotx > 0.75:
-                    shotx = 0.75
+                if shoty > 0.25:
+                    shoty = 0.25
 
-                if shotx < -0.75:
-                    shotx = -0.75
+                if shoty < -0.25:
+                    shoty = -0.25
 
-                print("shoty: " + str(shoty) )
-                print("by" + str(by))
-                print("ry" + str(ry))
+                if shotx > 0.65:
+                    shotx = 0.74
+
+                if shotx < -0.65:
+                    shotx = -0.74
 
                 # print(ball_x_dist_from_goal)
 
@@ -254,12 +251,12 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                     SPOTONE = True
 
                 if team == 1:
-                    if xb > -0.1:
+                    if xb > 0.15:
                         BLOCK = True
                     else:
                         BLOCK = False
                 else:
-                    if xb < 0.1:
+                    if  xb < -0.15:
                         BLOCK = True
                     else:
                         BLOCK = False
