@@ -1,14 +1,17 @@
-# rcj_soccer_player controller - ROBOT B1
+# rcj_soccer_player controller - ROBOT B3
+
+###### REQUIRED in order to import files from B1 controller
+import sys
+from pathlib import Path
+sys.path.append(str(Path('.').absolute().parent))
+# You can now import scripts that you put into the folder with your
+# robot B1 controller
+
+from rcj_soccer_player_d1 import rcj_soccer_robot, utils
+######
 
 # Feel free to import built-in libraries
 import math
-from time import sleep
-
-# You can also import scripts that you put into the folder with controller
-import rcj_soccer_robot
-import utils
-
-
 
 
 class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
@@ -75,13 +78,13 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 # print("byd"+str(ball_y_dist_from_goal))
 
                 # shotx = bx + 0.15/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_x_dist_from_goal + 20*ball_change_x
-                shotx = bx + 0.1/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_x_dist_from_goal + 10*ball_change_x
+                shotx = bx + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_x_dist_from_goal + 10*ball_change_x
 
-                shoty = by + 0.1/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal + 23*ball_change_y
+                shoty = by + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal + 23*ball_change_y
 
 
                 if shoty > 0.65:
-                    shoty = shoty = by + 0.1/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal+ 23*ball_change_y
+                    shoty = shoty = by + 0.2/math.sqrt(ball_x_dist_from_goal**2+ball_y_dist_from_goal**2)*ball_y_dist_from_goal+ 23*ball_change_y
 
                     if shoty > 0.65:
                         shoty = 0.65
@@ -89,11 +92,11 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 if shoty < -0.65:
                     shoty = -0.65
 
-                if shotx > 0.75:
-                    shotx = 0.73
+                if shotx > 0.65:
+                    shotx = 0.75
 
-                if shotx < -0.75:
-                    shotx = -0.73
+                if shotx < -0.65:
+                    shotx = -0.75
 
                 # print(ball_x_dist_from_goal)
 
@@ -120,25 +123,11 @@ class MyRobot(rcj_soccer_robot.RCJSoccerRobot):
                 #     xtarget = 0.2
                 #     ytarget = 0
 
-
-                if team == -1:
-                    if xtarget > 0.6 and ((bdist>0.2) or xtarget > 0.72):
-                        xtarget = -0.15
-                        ytarget = 0
-                    if xtarget < -0.6:
-                        xtarget = -0.15
-                        ytarget = 0
-
-                else:
-                    if xtarget > 0.6:
-                        xtarget = -0.15
-                        ytarget = 0
-                    if xtarget < -0.6  and (bdist>0.2):
-                        xtarget = -0.15
-                        ytarget = 0
-
-
-
+                # TO KEEP THE ATTACKER ON OFFENSE
+                # if (xtarget > 0.2 and bdist > 0.1) or xtarget > 0.4:
+                #     xtarget = 0.12
+                #     ytarget = 0
+                #
                 def moveTo(x,y):
                     robot_angle_2= robot_pos['orientation']
 
